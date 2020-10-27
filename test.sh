@@ -9,7 +9,7 @@ echo -e "\n $ANSI_YELLOW *** testing docker run - alpine *** $ANSI_RESET \n"
 echo -e "$ANSI_YELLOW Display current directory: $ANSI_RESET"
 docker volume create testgit
 docker run -i --rm --name some_git --mount source=testgit,target=/git quay.io/ibmz/git:latest clone https://github.com/korpx-z/hello.git
-cat /media/testgit/hello/hello.txt
+docker run --rm -i -v=testgit:/tmp/myvolume quay.io/ibmz/busybox:musl find /tmp/myvolume
 
 
 echo -e "\n $ANSI_GREEN *** TEST COMPLETED SUCESSFULLY *** $ANSI_RESET \n"
