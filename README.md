@@ -1,44 +1,23 @@
-### docker-git-alpine
+## docker-git-alpine
 
-A useful simple git container running in alpine Linux, especially for tiny Linux distro, such as RancherOS, which doesn't have a package manager.
+**Build Source**
+[github](https://github.com/korpx-z/git)
+-	[`latest`](https://github.com/korpx-z/git)  [![Build Status](https://travis-ci.com/korpx-z/git.svg?branch=master)](https://travis-ci.com/github/korpx-z/git)
 
+A useful simple git container running in alpine Linux. <br />
+_Derived from [alpine-docker/git](https://github.com/alpine-docker/git)_<br />
 [![DockerHub Badge](http://dockeri.co/image/alpine/git)](https://hub.docker.com/r/alpine/git/)
 
-### Github Repo
-
-https://github.com/alpine-docker/git
-
-### travis CI build logs
-
-https://travis-ci.org/alpine-docker/git
-
-### Docker image tags
-
-https://hub.docker.com/r/alpine/git/tags/
-
-Notes:
-
-New tags with non-root user in image has been created.
-
-```
-alpine/git:<version>-user
-alpine/git:user
-```
-Its uid and gid in container are 1000
-```
-$ docker run -ti --rm --entrypoint=id alpine/git:user
-uid=1000(git-user) gid=1000(git-user)
-```
-Docker build from feature branch `feature/non-root`
-
 ### usage
-
-    docker run -ti --rm -v ${HOME}:/root -v $(pwd):/git alpine/git <git_command>
-
+**Bind mounts are not currently allowed on ZCX for security purposes.. please use docker volumes instead.**
+```
+docker volume create <docker_volume>
+docker run -i --mount source=<docker_volume>,target=/git quay.io/ibmz/git:latest <git_command>
+```
 For example, if you need clone this repository, you can run
-
-    docker run -ti --rm -v ${HOME}:/root -v $(pwd):/git alpine/git clone https://github.com/alpine-docker/git.git
-    
+```
+docker run -ti --rm -v ${HOME}:/root -v $(pwd):/git alpine/git clone https://github.com/korpx-z/git.git
+```
 ### Optional usage 1:
 
 To save your type, add this fuction to `~/.bashrc` or `~/.profile`
@@ -48,7 +27,7 @@ To save your type, add this fuction to `~/.bashrc` or `~/.profile`
     ...
     
     function git () {
-        (docker run -ti --rm -v ${HOME}:/root -v $(pwd):/git alpine/git "$@")
+        (docker run -ti --rm -v <docker_volume>:/root -v <docker_volume>:/git "$@")
     }
     
     ...
@@ -57,42 +36,14 @@ To save your type, add this fuction to `~/.bashrc` or `~/.profile`
 
 for example, if you need clone this repository, with the function you just set, you can run it as local command
 
-    git clone https://github.com/alpine-docker/git.git
+    git clone https://github.com/korpx-z/git.git
 
-### Optional usage 2:
-
-    alias git="docker run -ti --rm -v $(pwd):/git -v $HOME/.ssh:/root/.ssh alpine/git"
-    
-#### NOTES:
-
-- You need redefine (re-run) the alias, when you switch between different repositories
-- You need run above alias command only under git repository's root directory.
-
-## Demo
-
-    $ cd application
-    $ alias git="docker run -ti --rm -v $(pwd):/git -v $HOME/.ssh:/root/.ssh alpine/git"
-    $ git clone git@github.com:YOUR_ACCOUNT/YOUR_REPO.git
-    $ cd YOUR_REPO
-    $ alias git="docker run -ti --rm -v $(pwd):/git -v $HOME/.ssh:/root/.ssh alpine/git"
-    # edit several files
-    $ git add . 
-    $ git status
-    $ git commit -m "test"
-    $ git push -u origin master
     
 ### The Protocols
 
 Supports git, http/https and ssh protocols.
 
-Refer:
-[Git on the Server - The Protocols](https://git-scm.com/book/en/v2/Git-on-the-Server-The-Protocols)
+###License
+**Apache License 2.0**
 
-### Automation builds
-
-Set Travis CI to run builds every month.
-- build on latest alpine image
-- build with latest git in the alpine image
-- generate new tag for this image
-- generate git's version as image tag as well (`v${GIT_VERSION}`)
-- update `latest` tag for this image
+_A permissive license whose main conditions require preservation of copyright and license notices. Contributors provide an express grant of patent rights. Licensed works, modifications, and larger works may be distributed under different terms and without source code._
