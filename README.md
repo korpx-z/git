@@ -1,8 +1,8 @@
 ## docker-git-alpine
 
 **Build Source**
-[github](https://github.com/korpx-z/git)
--	[`latest`](https://github.com/korpx-z/git)  [![Build Status](https://travis-ci.com/korpx-z/git.svg?branch=master)](https://travis-ci.com/github/korpx-z/git)
+-    [build source](https://github.com/korpx-z/git)
+-    [original source code](https://github.com/alpine-docker/git)
 
 A useful simple git container running in alpine Linux. <br />
 _Derived from [alpine-docker/git](https://github.com/alpine-docker/git)_<br />
