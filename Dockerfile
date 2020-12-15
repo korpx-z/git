@@ -1,4 +1,4 @@
-FROM quay.io/ibmz/alpine:3.12
+FROM quay.io/ibm/alpine:3.12
 RUN apk --update add git less openssh && \
     rm -rf /var/lib/apt/lists/* && \
     rm /var/cache/apk/*
